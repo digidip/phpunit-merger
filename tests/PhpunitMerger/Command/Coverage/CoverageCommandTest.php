@@ -11,10 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CoverageCommandTest extends AbstractCommandTestCase
 {
-    /**
-     * @var string
-     */
-    protected $outputFile = 'coverage.xml';
+    protected string $outputFile = 'coverage.xml';
 
     public function testCoverageWritesOutputFile()
     {
@@ -27,8 +24,7 @@ class CoverageCommandTest extends AbstractCommandTestCase
                 $this->logDirectory . $this->outputFile,
             ]
         );
-        $output = $this->getMockBuilder(OutputInterface::class)
-            ->getMock();
+        $output = $this->getMockBuilder(OutputInterface::class)->getMock();
         $output->method('write')->willThrowException(new \Exception());
 
         $command = new CoverageCommand();
@@ -47,8 +43,7 @@ class CoverageCommandTest extends AbstractCommandTestCase
                 $this->logDirectory . 'coverage/',
             ]
         );
-        $output = $this->getMockBuilder(OutputInterface::class)
-            ->getMock();
+        $output = $this->getMockBuilder(OutputInterface::class)->getMock();
 
         $command = new CoverageCommand();
         $command->run($input, $output);
@@ -66,8 +61,7 @@ class CoverageCommandTest extends AbstractCommandTestCase
                 '--html=' . $this->logDirectory . dirname($this->outputFile),
             ]
         );
-        $output = $this->getMockBuilder(OutputInterface::class)
-            ->getMock();
+        $output = $this->getMockBuilder(OutputInterface::class)->getMock();
 
         $command = new CoverageCommand();
         $command->run($input, $output);
@@ -89,8 +83,7 @@ class CoverageCommandTest extends AbstractCommandTestCase
                 '--highLowerBound=70',
             ]
         );
-        $output = $this->getMockBuilder(OutputInterface::class)
-            ->getMock();
+        $output = $this->getMockBuilder(OutputInterface::class)->getMock();
 
         $command = new CoverageCommand();
         $command->run($input, $output);
@@ -122,8 +115,7 @@ class CoverageCommandTest extends AbstractCommandTestCase
                 $this->logDirectory . $this->outputFile,
             ]
         );
-        $output = $this->getMockBuilder(OutputInterface::class)
-            ->getMock();
+        $output = $this->getMockBuilder(OutputInterface::class)->getMock();
         $output->method('write')->willThrowException(new \Exception());
 
         $command = new CoverageCommand();

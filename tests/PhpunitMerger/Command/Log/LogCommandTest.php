@@ -6,24 +6,24 @@ namespace Nimut\PhpunitMerger\Tests\Command\Log;
 
 use Nimut\PhpunitMerger\Command\LogCommand;
 use Nimut\PhpunitMerger\Tests\Command\AbstractCommandTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class LogCommandTest extends AbstractCommandTestCase
 {
-    /**
-     * @var string
-     */
-    protected $outputFile = 'log.xml';
+    use ProphecyTrait;
 
-    public function testRunMergesCoverage()
+    protected string $outputFile = 'log.xml';
+
+    public function testRunMergesLogs()
     {
         $this->assertOutputFileNotExists();
 
         $input = new ArgvInput(
             [
                 'log',
-                $this->logDirectory . 'log/',
+                __DIR__ . '/datasets/',
                 $this->logDirectory . $this->outputFile,
             ]
         );
@@ -33,5 +33,6 @@ class LogCommandTest extends AbstractCommandTestCase
         $command->run($input, $output);
 
         $this->assertFileExists($this->logDirectory . $this->outputFile);
+        self::assertXmlFileEqualsXmlFile(__DIR__ . '/expected_merge.xml', $this->logDirectory . $this->outputFile);
     }
 }
